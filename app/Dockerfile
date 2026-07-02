@@ -10,5 +10,5 @@ WORKDIR /app
 COPY --from=build /app/node_modules ./node_modules
 COPY app.js .
 USER appuser
-
+EXPOSE 3000
 CMD ["node", "app.js"]

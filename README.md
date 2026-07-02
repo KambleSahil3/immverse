@@ -5,7 +5,34 @@ A two-player Tic-Tac-Toe game in the browser, served via Express.
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/) v20+
-- [Docker](https://www.docker.com/) (optional)
+- [Docker](https://www.docker.com/) + [Docker Compose](https://docs.docker.com/compose/) (optional)
+
+## Project Structure
+
+```
+immverse/
+├── app/
+│   ├── app.js          # Express server + game UI
+│   ├── package.json
+│   ├── package-lock.json
+│   └── Dockerfile      # 2-stage build, non-root user
+├── docker-compose.yml
+├── .env.example
+├── .gitignore
+└── README.md
+```
+
+## Environment Variables
+
+Copy `.env.example` to `.env` before running:
+
+```bash
+cp .env.example .env
+```
+
+| Variable | Default | Description               |
+|----------|---------|---------------------------|
+| `PORT`   | `3000`  | Port the server listens on |
 
 ## Run locally
 
@@ -17,23 +44,32 @@ npm start
 
 Open http://localhost:3000
 
-## Run with Docker
+## Run with Docker Compose (recommended)
 
 ```bash
-cd app
-docker build -t tictactoe .
-docker run -p 3000:3000 tictactoe
+docker compose up -d --build
 ```
 
 Open http://localhost:3000
 
-## Environment Variables
+To stop:
 
-| Variable | Default | Description          |
-|----------|---------|----------------------|
-| `PORT`   | `3000`  | Port the server listens on |
+```bash
+docker compose down
+```
+
+## Run with Docker directly
+
+```bash
+cd app
+docker build -t tictactoe .
+docker run -p 3000:3000 --env-file ../.env tictactoe
+```
+
+Open http://localhost:3000
 
 ## Tech Stack
 
 - Node.js + Express — serves the game as a single HTML page
 - Vanilla JS — game logic and UI (no frontend framework)
+- Docker — 2-stage build (`node:24-alpine`), runs as non-root user
