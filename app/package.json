@@ -1,0 +1,13 @@
+{
+  "name": "tictactoe",
+  "version": "1.0.0",
+  "description": "A simple Tic-Tac-Toe web game",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  },
+  "license": "MIT"
+}
